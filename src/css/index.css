@@ -5,6 +5,14 @@
   text-decoration: none;
 }
 
+a {
+  color: inherit;
+}
+
+body {
+  background-color: #eee;
+}
+
 .icon {
   width: 1em; 
   height: 1em;
@@ -23,12 +31,30 @@
   margin-top: -3px;
 }
 
+.bg {
+  background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1505624246&di=f9ba36089ffa8f66c9020837b247da9f&src=http://pic2.ooopic.com/11/01/67/74b1OOOPIC47.jpg) center center no-repeat;
+  background-size: auto 100%;
+  filter: blur(3px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
 .wrap {
   width: 340px;
   margin: 0 auto;
   margin-top: 30px;
   border-radius: 8px;
   box-shadow: 0px 16px 3px -10px rgba(0,0,0,0.2);
+  background: rgba(198, 194, 194, 0.30);
+  position: absolute;
+  left: 50%;
+  margin-left: -170px;
+}
+
+.wrap:hover {
   background: #eee;
 }
 
@@ -141,6 +167,7 @@
   display: flex;
   justify-content: space-around;
   margin-right: 10px;
+  height: 180px;
 }
 
 .main > .img {
@@ -240,7 +267,7 @@ footer > p {
   width: 300px;
   height: 30px;
   position: absolute;
-  top: 230px;
+  top: 205px;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
@@ -309,6 +336,7 @@ footer > p {
 .author {
   text-align: right;
   padding-right: 10px;
+  padding-bottom: 5px;
 }
 
 .author a:hover {

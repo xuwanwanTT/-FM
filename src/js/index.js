@@ -16,6 +16,8 @@ var arrSong
 var songnum = 0
 var songVoteList = []
 var lrcHeight
+var localSong = {}
+var songidx = 0
 
 //一些事件的监听
 
@@ -79,7 +81,6 @@ $('.voteR').addEventListener('click',function(){
   $('.voteR').classList.add('active')
   $('.vote').classList.remove('active')
   dealVoteR()
-  songnum--
 })
 
 playSong.addEventListener('play',function(){
@@ -207,6 +208,7 @@ function dealSongGet(data){
 
 function dealSong(data){
   $('.img > img').src = data.picture
+  $('.bg').style.backgroundImage = 'url('+data.picture + ')'
   $('.song').innerText = data.title
   $('.singer').innerText = data.artist
   playSong.src = data.url
@@ -290,6 +292,7 @@ function getHeight(){
 
 function lrcScrollS(){
   var index = 0
+  if($('.showLrc p').length === 0){return}
   for(var k = 0; k < list1.length; k++){
     var time = lrctime(playSong.currentTime)
     if(list1[k] === time){
@@ -298,7 +301,6 @@ function lrcScrollS(){
       }
       $('.showLrc p')[k].classList.add('active')
       $('.showLrc').style.top = -(k-1)*lrcHeight/list1.length + 80 +'px';
-      console.log(k)
     }
   }
 }
@@ -365,17 +367,29 @@ function autoBar(){
 
 function dealVote(){
   songVoteList.push(arrSong)
-  var html = songnum + 1 + '.' + songVoteList[songnum][0].title + '-' + songVoteList[songnum][0].artist
+  var html = '.' + songVoteList[songnum][0].title + '-' + songVoteList[songnum][0].artist
   var node = document.createElement('li')
   node.innerText = html
   $('.songList').appendChild(node)
+  localSong[songnum] = songVoteList
+  window.localStorage.setItem('list',JSON.stringify(localSong))
+  window.localStorage.setItem('listV',JSON.stringify(songVoteList))
+  window.localStorage.setItem('index',songnum)
+  songidx = songnum
 }
 
 function dealVoteR(){
-  songVoteList.pop(songVoteList[songnum])
-  var node = $('.songList li')
-  if(node.length !== undefined){node = $('.songList li')[songnum-1]}
-  $('.songList').removeChild(node)
+  var html = '.' + songVoteList[songidx][0].title + '-' + songVoteList[songidx][0].artist
+  if($('.songList li').length === undefined){
+    $('.songList').removeChild($('.songList li'))
+  }
+  for(var i = 0; i < $('.songList li').length; i++){
+    if($('.songList li')[i].innerText === html){
+      $('.songList').removeChild($('.songList li')[i])
+    }
+  }
+  delete localSong[songidx]
+  window.localStorage.setItem('list',JSON.stringify(localSong))  
 }
 
 $('.songListicon').addEventListener('click',function(){
@@ -400,8 +414,26 @@ $('.lyricicon').addEventListener('click',function(){
 })
 
 $('.songList').addEventListener('click',function(e){
-  var idx = [].indexOf.call($('.songList > li'),e.toElement)
-  dealSong(songVoteList[idx][0]) 
+  $('.showLrc').innerText = ''
+  for(var n in localSong){
+    var html = '.' + localSong[n][n][0].title + '-' + localSong[n][n][0].artist
+    if(html === e.toElement.innerText){
+      dealSong(songVoteList[n][0])
+      songidx = n
+    }
+  }
 })
+
+if(window.localStorage.getItem('list')){
+  localSong = JSON.parse(window.localStorage.getItem('list'))
+  for(var n in localSong){
+    var html = '.' + localSong[n][n][0].title + '-' + localSong[n][n][0].artist
+    var node = document.createElement('li')
+    node.innerText = html
+    $('.songList').appendChild(node)
+  }
+  songnum = Number(window.localStorage.getItem('index'))
+  songVoteList = JSON.parse(window.localStorage.getItem('listV'))
+}
 
 
