@@ -110,7 +110,7 @@ function getChannels(){
       }
     }
   }
-  xhr.open('get','http://api.jirengu.com/fm/getChannels.php',true)
+  xhr.open('get','https://jirenguapi.applinzi.com/fm/getChannels.php',true)
   xhr.send()
 }
 
@@ -128,7 +128,7 @@ function getSong(){
       songLock = true
     }
   }
-  xhr.open('get','http://api.jirengu.com/fm/getSong.php?channel=' + channelid[index],true)
+  xhr.open('get','https://jirenguapi.applinzi.com/fm/getSong.php?channel=' + channelid[index],true)
   xhr.send()
   songLock = false  
 }
@@ -147,7 +147,7 @@ function getLrc(id){
       }
     }
   }
-  xhr.open('get','http://api.jirengu.com/fm/getLyric.php?&sid=' + id,true)
+  xhr.open('get','https://jirenguapi.applinzi.com/fm/getLyric.php?&sid=' + id,true)
   xhr.send()
 }
 
