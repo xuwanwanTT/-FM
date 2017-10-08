@@ -2,6 +2,8 @@
 
 ### 作者，肖丰。
 
+![My-FM.png](http://upload-images.jianshu.io/upload_images/5430411-330fe443c115413f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 预览地址， https://xuwanwantt.github.io/My-FM/index.html
 
 ### 介绍
@@ -30,9 +32,32 @@
 
 ### 后记
 
-实现过程中进度条的实现感觉有点难，通过判断鼠标位置，换算到进度条刻度，通过对鼠标事件的监听和取消，得到进度，并让歌词和音频同步，交互过程中会有一点延迟和误差。
+实现过程困难重重啊。
+
+##### 歌词展示
+
+核心：
+- 正则获取歌词的时间和内容```let reg = /^\[(.+)\](.+)$/```
+- currentTime，获取前播放时间time，通过对比歌词中的时间得到当前歌词```arr[i] < time < arr[i+1]```
+
+这里使用了两种方式表现，第一种是在后台通过操作数组，替换 innerText ，第二种是将歌词渲染到 DOM ，通过操作 DOM 的 top 属性，实现滚动
 
 
+##### 进度条功能的实现
+
+通过判断鼠标位置，换算到进度条刻度，通过对鼠标事件的监听和取消，得到进度，并让歌词和音频同步，交互过程中会有一点延迟和误差。
+
+##### 本地存储
+
+使用 localStorage 进行本地存储和读取,
+```
+window.localStorage.setItem('list',JSON.stringify(songVoteList))
+```
+```
+songVoteList = JSON.parse(window.localStorage.getItem('list'))
+```
+
+将每次 vote 之后的歌曲 push到一个数组中，如果取消 vote，则删除数组中对应的元素，最后，遍历数组将数据 append 到页面上，在 append 之前需要清空容器``` node.innerText = '' ```
 
 注：接口数据源来自百度 FM ，饥人谷制作，仅供前端爱好者学习交流。
 
