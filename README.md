@@ -2,8 +2,6 @@
 
 ### 作者，肖丰。
 
-![My-FM(2).png](http://upload-images.jianshu.io/upload_images/5430411-db872118a2aa801b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
 预览地址， https://xuwanwantt.github.io/My-FM/index.html
 
 ### 介绍

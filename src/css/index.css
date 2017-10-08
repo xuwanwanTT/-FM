@@ -9,6 +9,10 @@ a {
   color: inherit;
 }
 
+html,body {
+  height: 100%;
+}
+
 body {
   background-color: #eee;
 }
@@ -31,31 +35,20 @@ body {
   margin-top: -3px;
 }
 
-.bg {
-  background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1505624246&di=f9ba36089ffa8f66c9020837b247da9f&src=http://pic2.ooopic.com/11/01/67/74b1OOOPIC47.jpg) center center no-repeat;
-  background-size: auto 100%;
-  filter: blur(3px);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+.page {
+  display: flex;
+  justify-content: center;
+  height: 100%;
 }
 
 .wrap {
   width: 340px;
-  margin: 0 auto;
+  height: 260px;
   margin-top: 30px;
   border-radius: 8px;
   box-shadow: 0px 16px 3px -10px rgba(0,0,0,0.2);
-  background: rgba(198, 194, 194, 0.30);
-  position: absolute;
-  left: 50%;
-  margin-left: -170px;
-}
-
-.wrap:hover {
   background: #eee;
+  position: relative;
 }
 
 .header {
@@ -167,7 +160,7 @@ body {
   display: flex;
   justify-content: space-around;
   margin-right: 10px;
-  height: 180px;
+  height: 150px;
 }
 
 .main > .img {
@@ -193,6 +186,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .main > .control > .time {
@@ -263,12 +257,15 @@ footer > p {
   width: 300px;
   height: 30px;
   position: absolute;
-  top: 205px;
+  top: 200px;
   left: 50%;
   transform: translate(-50%);
   text-align: center;
   text-shadow: 0px 2px 5px;
   display: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .saveList {
@@ -280,6 +277,10 @@ footer > p {
   overflow: auto;
   box-shadow: 0px 10px 10px -3px #c1c1c1;
   display: none;
+  position: absolute;
+  top: 260px;
+  border-radius: 8px;
+  background: #eee;
 }
 
 
@@ -296,43 +297,93 @@ footer > p {
 }
 
 .songList > li {
-  padding: 5px;
+  margin: 10px;
   cursor: pointer;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  overflow: hidden;
+  white-space: nowra;
 }
 
 .lrcScroll {
   display: none;
+  width: 340px;
+  height: 560px;
+  margin-top: 30px;
+  position: relative;
+  background: #eee;
+  border-radius: 8px;
+  box-shadow: inset 0px 0px 4px 1px #c1c1c1;
 }
 
 .show {
   display: block;
 }
 
+@keyframes circle {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.cover {
+  background: url(https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1505624246&di=f9ba36089ffa8f66c9020837b247da9f&src=http://pic2.ooopic.com/11/01/67/74b1OOOPIC47.jpg) center center no-repeat;
+  background-size: auto 100%;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 20px;
+  left: -305px;
+  animation: circle 20s infinite linear;
+  animation-play-state: paused;
+  transition: all .5s;
+  box-shadow: 0px 0px 40px -10px black; 
+}
+
+.cover.playing {
+  animation-play-state: running;
+}
+
 .lrcScroll > .view {
-  width: 340px;
-  height: 220px;
+  height: 65%;
   overflow: hidden;
   position: relative;
-  top: -35px;
+  margin: 30px 20px 0 20px;
 }
 
 .lrcScroll > .view > .showLrc {
-  width: 340px;
+  width: 100%;
   text-align: center;
   position: absolute;
-  top: 30px;
+  margin-top: 210px;
+  transition: .3s;
+}
+
+.lrcScroll > .view > .showLrc > p {
+  height: 42px;
+  color: #c1c1c1;
+  text-shadow: 1px 2px 2px #fff;
 }
 
 .lrcScroll > .view > .showLrc > .active {
-  color: #f13bd9;
-  font-size: 20px;
-  text-shadow: 1px 2px 2px #c1c1c1;
+  color: #333;
 }
 
 .author {
   text-align: right;
   padding-right: 10px;
-  padding-bottom: 5px;
+  padding-top: 10px;
+}
+
+.author > div {
+  visibility: hidden;
+} 
+
+.author:hover div{
+  visibility: visible;
 }
 
 .author a:hover {
